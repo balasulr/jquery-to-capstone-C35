@@ -1,12 +1,13 @@
 let user;
 
+let parms;
+
 $().ready(() => {
     console.debug("Ready!");
 
-    $("#get").on("click", () => {
-        let id = $("#xId").val(); // gets what in text box and puts in id
-        display(id);
-    });
+    parms = getUrlParms();
+    console.debug("Parms:", parms);
+    display(parms.id);
 
     $("#save").on("click", () => {
         save();
@@ -33,7 +34,7 @@ const display = (id) => {
 
 const save = () => {
     let user = {
-        id: +$("#iId").val(),
+        id: +$("#iId").val(), // Makes sure that data that is pulled out for id is pulled out as a number instead of a string
         username: $("#iUsername").val(),
         password: "Train@MAX",
         firstname: $("#iFirstname").val(),
@@ -43,13 +44,16 @@ const save = () => {
         isReviewer: $("#iReviewer").prop("checked"),
         isAdmin: $("#iAdmin").prop("checked")
     }
-    console.debug(user);
+    console.debug(user); // To see what data is sent back
     $.ajax({
         url:"http://localhost:3918/api/users/" + user.id,
         method: "PUT",
         data: JSON.stringify(user),
         contentType: "application/json"
     })
-        .then((res) => { console.log(res); })
+        .then((res) => {
+            console.log(res);
+            document.location.href = "index.html"
+        })
         .fail((err) => { console.error(err); });
 }

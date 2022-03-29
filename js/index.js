@@ -19,7 +19,6 @@ $().ready( () => {
         );
     } );
 
-    
     const display = (users) => {
         var tbody = $("#users");
         for(let user of users) {
@@ -38,6 +37,8 @@ $().ready( () => {
             tr.append(tdReviewer);
             let tdAdmin = $(`<td>${(user.isAdmin ? "Yes" : "No")}</td>`); // Returns Yes if true & No if false
             tr.append(tdAdmin);
+            let tdAction = $(`<td><a href="detail.html?id=${user.id}">Detail</a> | <a href="change.html?id=${user.id}">Edit</a> </td>`);
+            tr.append(tdAction);
             tbody.append(tr);
         }
     }

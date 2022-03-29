@@ -27,6 +27,7 @@ const create = () => {
     })
         .then((res) => { // What to do if successful
             console.debug(res);
+            document.location.href = "index.html";
         })
         .fail((err) => { // What to do if fails
             console.error(err);
